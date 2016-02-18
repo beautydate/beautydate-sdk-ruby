@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .bundle/
 log/*.log
 pkg/
@@ -7,7 +6,6 @@ test/dummy/db/*.sqlite3-journal
 test/dummy/log/*.log
 test/dummy/tmp/
 test/dummy/.sass-cache
-=======
 *.rbc
 capybara-*.html
 .rspec
@@ -22,7 +20,6 @@ capybara-*.html
 rerun.txt
 pickle-email-*.html
 
-# TODO Comment out these rules if you are OK with secrets being uploaded to the repo
 config/initializers/secret_token.rb
 config/secrets.yml
 
@@ -43,4 +40,3 @@ bower.json
 
 # Ignore pow environment settings
 .powenv
->>>>>>> d55a7e971f42e1f2cfc7e7143402f775abce8a0b
