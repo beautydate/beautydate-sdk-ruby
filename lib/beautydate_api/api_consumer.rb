@@ -33,8 +33,7 @@ module BeautydateApi
     end
 
     def valid?
-      # @expires_at
-      true
+      authenticated? and Time.now <= Time.at(@expires_at)
     end
 
     def bearer
