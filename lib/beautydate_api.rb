@@ -1,11 +1,30 @@
+require_relative "beautydate_api/object"
 require_relative "beautydate_api/api_resource"
+require_relative "beautydate_api/api_request"
+require_relative "beautydate_api/api_consumer"
 require_relative "beautydate_api/business"
-require_relative "beautydate_api/consumer"
 
 module BeautydateApi
   @api_version = 'v2'
-  @endpoint = 'https://beautydate.com/api'
-  @staging_endpoint = 'https://beta.beautydate.com/api'
+  @endpoint = 'https://beautydate.com.br/api'
+  @staging_endpoint = 'https://beta.beautydate.com.br/api'
+
+  class AuthenticationException < StandardError
+  end
+
+  class RequestFailed < StandardError
+  end
+
+  class ObjectNotFound < StandardError
+  end
+
+  class RequestWithErrors < StandardError
+    attr_accessor :errors
+
+    def initialize(errors)
+      @errors = errors
+    end
+  end
 
   class << self
     attr_accessor :api_key

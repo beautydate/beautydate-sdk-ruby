@@ -1,12 +1,11 @@
 module BeautydateApi
-  class APIResource
+  class APIResource < BeautydateApi::Object
     
     def is_new?
       @attributes['id'].nil?
     end
 
     class << self
-      
       def url(options=nil)
         endpoint_url + self.relative_url(options)
       end
@@ -14,7 +13,7 @@ module BeautydateApi
       def object_type
         self.name.
           to_s.
-          gsub(/BeautydateApi::/, '').
+          gsub(/BeautydateApi::/i, '').
           downcase
       end
 
@@ -34,8 +33,8 @@ module BeautydateApi
       end
 
       def object_base_uri
-        pluralized_models = %w'business'
-        pluralized_models_names = %w'businesses'
+        pluralized_models = %w'business apiconsumer'
+        pluralized_models_names = %w'businesses consumers'
 
         plural_position = pluralized_models.index(self.object_type)
         if plural_position
