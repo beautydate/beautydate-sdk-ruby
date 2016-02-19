@@ -8,12 +8,7 @@ module BeautydateApi
   class APIRequest
     class << self
       def consumer
-        if @consumer.present?
-          @consumer
-        else
-          @consumer = BeautydateApi::APIConsumer.new
-          @consumer.authenticate BeautydateApi.api_key
-        end
+        @consumer ||= BeautydateApi::APIConsumer.new.authenticate(BeautydateApi.api_key)
       rescue BeautydateApi::ObjectNotFound => e
         raise BeautydateApi::AuthenticationException, "Não foi possível autenticar o Consumer, verifique o BEAUTYDATE_TOKEN"
       end
@@ -55,7 +50,7 @@ module BeautydateApi
         {
           user_agent: "Beauty Date Ruby Client #{BeautydateApi::VERSION}",
           content_type: 'application/vnd.api+json',
-          authorization: consumer.bearer
+          authorization: self.consumer.bearer
         }
       end
     end
