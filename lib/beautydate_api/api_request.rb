@@ -15,7 +15,7 @@ module BeautydateApi
           @consumer.authenticate BeautydateApi.api_key
         end
       rescue BeautydateApi::ObjectNotFound => e
-        raise BeautydateApi::AuthenticationException, "Não foi possível autenticar o consumer, verifique: BEAUTYDATE_TOKEN"
+        raise BeautydateApi::AuthenticationException, "Não foi possível autenticar o Consumer, verifique o BEAUTYDATE_TOKEN"
       end
 
       def request(method, url, data = {})
@@ -44,7 +44,9 @@ module BeautydateApi
           method: method,
           url: url,
           headers: headers,
-          payload: data.to_json,
+          payload: {
+            data: data.to_json
+          },
           timeout: 30
         }
       end

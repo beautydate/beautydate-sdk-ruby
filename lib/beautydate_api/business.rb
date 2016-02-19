@@ -3,20 +3,18 @@ module BeautydateApi
     def create commercial_name, type, zipcode, street, street_number, neighborhood, city, state, phone, description
 
       data = {
-        data: {
-          type: "businesses",
-          attributes: {
-            name: commercial_name,
-            businesstype: type,
-            zipcode: zipcode,
-            street: street,
-            street_number: street_number,
-            neighborhood: neighborhood,
-            city: city,
-            state: state,
-            phone: phone,
-            description: description
-          }
+        type: "businesses",
+        attributes: {
+          name: commercial_name,
+          businesstype: type,
+          zipcode: zipcode,
+          street: street,
+          street_number: street_number,
+          neighborhood: neighborhood,
+          city: city,
+          state: state,
+          phone: phone,
+          description: description
         }
       }
 
