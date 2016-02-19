@@ -30,6 +30,7 @@ module BeautydateApi
         else
           options
         end
+        id ? "/#{id}" : ""
       end
 
       def object_base_uri

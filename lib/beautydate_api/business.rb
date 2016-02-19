@@ -1,5 +1,8 @@
 module BeautydateApi
   class Business < APIResource
+    
+    # "trial", "pending", "ok"
+
     def create commercial_name, type, zipcode, street, street_number, neighborhood, city, state, phone, description
 
       data = {
@@ -24,6 +27,19 @@ module BeautydateApi
     rescue BeautydateApi::RequestWithErrors => ex
       self.errors = ex.errors
       false
+    end
+
+    def add_trial_days days
+      result = APIRequest.request("POST", "#{self.class.url(self.id)}/add_trial_days/#{days}")
+      self.errors = nil
+      true
+    rescue BeautydateApi::RequestWithErrors => ex
+      self.errors = ex.errors
+      false
+    end
+
+    def update
+      
     end
   end
 end
