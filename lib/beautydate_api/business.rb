@@ -2,9 +2,31 @@ module BeautydateApi
   class Business < APIResource
     
     # "trial", "pending", "ok"
-
     def create commercial_name, type, zipcode, street, street_number, neighborhood, city, state, phone, description
+      data = {
+        type: "businesses",
+        attributes: {
+          name: commercial_name,
+          businesstype: type,
+          zipcode: zipcode,
+          street: street,
+          street_number: street_number,
+          neighborhood: neighborhood,
+          city: city,
+          state: state,
+          phone: phone,
+          description: description
+        }
+      }
+      result = APIRequest.request("POST", "#{self.class.endpoint_url}", data)
+      self.errors = nil
+      true
+    rescue BeautydateApi::RequestWithErrors => ex
+      self.errors = ex.errors
+      false
+    end
 
+    def update commercial_name, type, zipcode, street, street_number, neighborhood, city, state, phone, description
       data = {
         type: "businesses",
         attributes: {
@@ -21,7 +43,7 @@ module BeautydateApi
         }
       }
 
-      result = APIRequest.request("POST", "#{self.class.endpoint_url}", data)
+      result = APIRequest.request("PUT", "#{self.class.url(self.id)}", data)
       self.errors = nil
       true
     rescue BeautydateApi::RequestWithErrors => ex
@@ -38,8 +60,14 @@ module BeautydateApi
       false
     end
 
-    def update
-      
+    def refresh
+      result = APIRequest.request("GET", "#{self.class.url(self.id)}")
+      self.errors = nil
+      # true
+      result
+    rescue BeautydateApi::RequestWithErrors => ex
+      self.errors = ex.errors
+      false
     end
   end
 end
