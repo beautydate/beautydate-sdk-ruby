@@ -1,72 +1,58 @@
 module BeautydateApi
   class Business < APIResource
-    
-    # "trial", "pending", "ok"
-    def create commercial_name, type, zipcode, street, street_number, neighborhood, city, state, phone, description
-      data = {
-        type: "businesses",
-        attributes: {
-          name: commercial_name,
-          businesstype: type,
-          zipcode: zipcode,
-          street: street,
-          street_number: street_number,
-          neighborhood: neighborhood,
-          city: city,
-          state: state,
-          phone: phone,
-          description: description
-        }
-      }
-      result = APIRequest.request("POST", "#{self.class.endpoint_url}", data)
-      self.errors = nil
-      true
-    rescue BeautydateApi::RequestWithErrors => ex
-      self.errors = ex.errors
-      false
-    end
 
-    def update commercial_name, type, zipcode, street, street_number, neighborhood, city, state, phone, description
-      data = {
-        type: "businesses",
-        attributes: {
-          name: commercial_name,
-          businesstype: type,
-          zipcode: zipcode,
-          street: street,
-          street_number: street_number,
-          neighborhood: neighborhood,
-          city: city,
-          state: state,
-          phone: phone,
-          description: description
-        }
-      }
-
-      result = APIRequest.request("PUT", "#{self.class.url(self.id)}", data)
-      self.errors = nil
-      true
-    rescue BeautydateApi::RequestWithErrors => ex
-      self.errors = ex.errors
-      false
-    end
-
-    def add_trial_days days
-      result = APIRequest.request("POST", "#{self.class.url(self.id)}/add_trial_days/#{days}")
-      self.errors = nil
-      true
-    rescue BeautydateApi::RequestWithErrors => ex
-      self.errors = ex.errors
-      false
-    end
-
+    # Update object data from Beauty Data
     def refresh
       result = APIRequest.request("GET", "#{self.class.url(self.id)}")
       self.errors = nil
-      # true
-      result
-    rescue BeautydateApi::RequestWithErrors => ex
-      self.errors = ex.errors
+      update_attributes_from_result result
+      true
+    rescue BeautydateApi::RequestWithErrors => e
+      self.errors = e.errors
+      false
+    end
+    
+    # "trial", "pending", "ok"
+    # commercial_name, type, zipcode, street, street_number, neighborhood, city, state, phone, description, az_id
+    # manual_payment
+    def create(attributes)
+      result = APIRequest.request("POST", "#{self.class.endpoint_url}", { type: "businesses", attributes: attributes })
+      self.errors = nil
+      update_attributes_from_result result
+      true
+    rescue BeautydateApi::RequestWithErrors => e
+      self.errors = e.errors
+      false
+    end
+
+    def update
+      result = APIRequest.request("PUT", "#{self.class.url(self.id)}", { type: "businesses", attributes: unsaved_data })
+      self.errors = nil
+      update_attributes_from_result result
+      true
+    rescue BeautydateApi::RequestWithErrors => e
+      self.errors = e.errors
+      false
+    end
+
+    def add_trial_days(days, update_data)
+      APIRequest.request("POST", "#{self.class.url(self.id)}/add_trial_days/#{days}")
+      self.errors = nil
+      refresh if update_data
+      true
+    rescue BeautydateApi::RequestWithErrors => e
+      self.errors = e.errors
+      false
+    end
+
+    def manual_payment(status, update_data=false)
+      status = !!status ? 'enable' : 'disable'
+      APIRequest.request("PUT", "#{self.class.url(self.id)}/manual_payment/#{status}")
+      refresh if update_data
+      self.errors = nil
+      true
+    rescue BeautydateApi::RequestWithErrors => e
+      self.errors = e.errors
       false
     end
   end
