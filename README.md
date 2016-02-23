@@ -1,4 +1,4 @@
-= Beautydate API v2 Client
+# Beautydate API v2 Client
 
 # Definindo o CONSUMER KEY de acesso a API do Beauty Date
 BeautydateApi.api_key = 'API_KEY'
