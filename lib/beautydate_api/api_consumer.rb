@@ -7,7 +7,7 @@ module BeautydateApi
         url: "#{BeautydateApi.base_uri}consumers/auth",
         timeout: 30,
         headers: {
-          user_agent: "Beauty Date Ruby Client #{BeautydateApi::VERSION}",
+          user_agent: "BeautyDate/#{BeautydateApi::VERSION}; Ruby Client",
           content_type: 'application/vnd.api+json'
         },
         payload: {
@@ -19,11 +19,10 @@ module BeautydateApi
           }
         }.to_json
       }
-
       result = JSON.parse(RestClient::Request.execute request)
       @bearer_key = result["data"]["attributes"]["token"]
       @expires_at = result["data"]["attributes"]["token_expires_at"]
-      self
+      true
     rescue
       raise AuthenticationException
     end

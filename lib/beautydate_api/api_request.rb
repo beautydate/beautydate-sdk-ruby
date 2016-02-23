@@ -1,14 +1,17 @@
 #encoding: UTF-8
-
 require 'rest_client'
-require "base64"
-require "json"
+require 'base64'
+require 'json'
 
 module BeautydateApi
   class APIRequest
     class << self
       def consumer
-        @consumer ||= BeautydateApi::APIConsumer.new.authenticate(BeautydateApi.api_key)
+        @consumer ||= BeautydateApi::APIConsumer.new
+        unless @consumer.valid?
+          @consumer.authenticate(BeautydateApi.api_key)
+        end
+        @consumer
       rescue BeautydateApi::ObjectNotFound => e
         raise BeautydateApi::AuthenticationException, "Não foi possível autenticar o Consumer, verifique o BEAUTYDATE_TOKEN"
       end
@@ -48,7 +51,7 @@ module BeautydateApi
 
       def headers
         {
-          user_agent: "Beauty Date Ruby Client #{BeautydateApi::VERSION}",
+          user_agent: "BeautyDate/#{BeautydateApi::VERSION}; Ruby Client",
           content_type: 'application/vnd.api+json',
           authorization: self.consumer.bearer
         }
