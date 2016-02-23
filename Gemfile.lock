@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    beautydate_api (0.0.1)
+    beautydate-api (0.0.1)
       rails (~> 4.2.3)
       rest-client (~> 1.8.0)
 
@@ -117,7 +117,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  beautydate_api!
+  beautydate-api!
   sqlite3
 
 BUNDLED WITH
