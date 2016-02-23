@@ -1,31 +1,42 @@
 # Beautydate API v2 Client
 
-# Definindo o CONSUMER KEY de acesso a API do Beauty Date
+## Definindo a chave de acesso a API do Beauty Date
+```ruby
 BeautydateApi.api_key = 'API_KEY'
+```
 
-# Business
+### Business
+Interagindo com os endpoints de Business.
+
+#### Recuperando dados de um Business
+```ruby
 business = BeautydateApi::Business.new
-
-## Recuperando dados de um Business
 business.id = 103
 business.refresh
-
-## Atualizando dados de um Business
+```
+#### Atualizando dados de um Business
+```ruby
+business = BeautydateApi::Business.new
 business.id = 103
 business.refresh
 business.az_id = 16
 business.update
-
-## Criando um Business API
+```
+#### Criando um Business API
+```ruby
+business = BeautydateApi::Business.new
 business.create {commercial_name: 'Nome Comercial', type: 'Salão de Beleza', zipcode: '80440-050', street: 'Rua Carmelo Rangel', street_number: '500', neighborhood: 'Batel', city: 'Curitiba', state: 'PR', phone: '4130289290', description: '', az_id: ''}
-
-## Adicionando dias de Trial
+```
+#### Adicionando dias de Trial
+```ruby
+business = BeautydateApi::Business.new
 business.id = 103
 business.add_trial_days 10
-
-## Ativando ou inativando o pagamento manual
+```
+#### Ativando ou inativando o pagamento manual
+```ruby
+business = BeautydateApi::Business.new
 business.id = 103
 business.manual_payment true
-
-
+```
 This project rocks and uses MIT-LICENSE.
