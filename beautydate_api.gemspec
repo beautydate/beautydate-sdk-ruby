@@ -1,6 +1,5 @@
-$:.push File.expand_path("../lib", __FILE__)
-
-# Maintain your gem's version:
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "beautydate_api/version"
 
 # Describe your gem and declare its dependencies:
