@@ -12,9 +12,7 @@ module BeautydateApi
       false
     end
     
-    # "trial", "pending", "ok"
     # commercial_name, type, zipcode, street, street_number, neighborhood, city, state, phone, description, az_id
-    # manual_payment
     def create(attributes)
       result = APIRequest.request("POST", "#{self.class.endpoint_url}", { type: "businesses", attributes: attributes })
       self.errors = nil
