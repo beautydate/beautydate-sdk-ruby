@@ -24,7 +24,7 @@ module BeautydateApi
     end
 
     def update
-      result = APIRequest.request("PUT", "#{self.class.url(self.id)}", { type: "businesses", attributes: unsaved_data })
+      result = APIRequest.request("PUT", "#{self.class.url(self.id)}", { type: "businesses", id: self.id, attributes: unsaved_data })
       self.errors = nil
       update_attributes_from_result result
       true
@@ -33,7 +33,7 @@ module BeautydateApi
       false
     end
 
-    def add_trial_days(days, update_data)
+    def add_trial_days(days, update_data=false)
       APIRequest.request("POST", "#{self.class.url(self.id)}/add_trial_days/#{days}")
       self.errors = nil
       refresh if update_data
