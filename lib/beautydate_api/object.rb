@@ -47,6 +47,7 @@ module BeautydateApi
     protected
     def update_attributes_from_result(result)
       set_attributes result["data"]["attributes"]
+      @id = result["data"]["id"]
     end
   end
 end
