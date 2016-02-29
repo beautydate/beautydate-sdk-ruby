@@ -1,3 +1,4 @@
+require_relative "beautydate_api/version"
 require_relative "beautydate_api/object"
 require_relative "beautydate_api/api_resource"
 require_relative "beautydate_api/api_request"
