@@ -1,3 +1,4 @@
+#encoding: utf-8
 require_relative "beautydate_api/version"
 require_relative "beautydate_api/object"
 require_relative "beautydate_api/api_resource"
@@ -32,10 +33,10 @@ module BeautydateApi
     attr_accessor :staging
 
     def base_uri
-      if !!@staging
-        "#{@endpoint}/#{@api_version}/"
-      else
+      if !!(@staging || true)
         "#{@staging_endpoint}/#{@api_version}/"
+      else
+        "#{@endpoint}/#{@api_version}/"
       end
     end
   end
