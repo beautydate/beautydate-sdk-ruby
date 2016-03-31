@@ -33,7 +33,8 @@ module BeautydateApi
     attr_accessor :staging
 
     def base_uri
-      if !!(@staging || true)
+      @staging = true if @staging.nil? # default environment
+      if @staging
         "#{@staging_endpoint}/#{@api_version}/"
       else
         "#{@endpoint}/#{@api_version}/"
