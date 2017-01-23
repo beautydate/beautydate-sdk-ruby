@@ -1,42 +1,45 @@
 module BeautydateApi
-  class APIConsumer
+  class APISession
 
-    def authenticate token
+    def authenticate(authorization, email, password)
       request = {
         method: 'POST',
-        url: "#{BeautydateApi.base_uri}consumers/auth",
+        url: "#{BeautydateApi.base_uri}sessions",
         timeout: 30,
         headers: {
           user_agent: "BeautyDate/#{BeautydateApi::VERSION}; Ruby Client",
-          content_type: 'application/vnd.api+json'
+          content_type: 'application/vnd.api+json',
+          authorization: authorization
         },
         payload: {
           data: {
-            type: 'consumers',
+            type: 'sessions',
             attributes: {
-              uuid: token
+              provider: 'b2beauty',
+              email: email,
+              password: password
             }
           }
         }.to_json
       }
       result = JSON.parse(RestClient::Request.execute request)
-      @bearer_key = result["data"]["attributes"]["token"]
-      @expires_at = result["data"]["attributes"]["token_expires_at"]
+      @token_key = result['data']['attributes']['token']
+      @expires_at = result['data']['attributes']['expires_at']
       true
-    rescue
+    rescue => e
       raise AuthenticationException
     end
 
     def authenticated?
-      !@bearer_key.to_s.empty?
+      !@token_key.to_s.empty?
     end
 
     def valid?
       authenticated? and Time.now <= Time.at(@expires_at)
     end
 
-    def bearer
-      "Bearer #{@bearer_key}"
+    def token
+      "Token=#{@token_key}"
     end
   end
 end

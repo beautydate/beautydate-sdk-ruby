@@ -13,7 +13,21 @@ module BeautydateApi
         end
         @consumer
       rescue BeautydateApi::ObjectNotFound => e
-        raise BeautydateApi::AuthenticationException, "Não foi possível autenticar o Consumer, verifique o BEAUTYDATE_TOKEN"
+        raise BeautydateApi::AuthenticationException, 'Não foi possível autenticar o Consumer, verifique o BEAUTYDATE_TOKEN'
+      end
+
+      def session
+        @session ||= BeautydateApi::APISession.new
+        unless @session.valid?
+          @session.authenticate(
+            consumer.bearer,
+            BeautydateApi.api_email,
+            BeautydateApi.api_password
+          )
+        end
+        @session
+      rescue BeautydateApi::ObjectNotFound => e
+        raise BeautydateApi::AuthenticationException, 'Não foi possível autenticar a sessão, verifique o email e senha'
       end
 
       def request(method, url, data = {})
@@ -21,6 +35,7 @@ module BeautydateApi
       end
 
       protected
+
       def send_request(method, url, data)
         RestClient::Request.execute build_request(method, url, data)
       rescue RestClient::ResourceNotFound
@@ -38,7 +53,7 @@ module BeautydateApi
       end
 
       def build_request(method, url, data)
-        { 
+        {
           method: method,
           url: url,
           headers: headers,
@@ -53,7 +68,8 @@ module BeautydateApi
         {
           user_agent: "BeautyDate/#{BeautydateApi::VERSION}; Ruby Client",
           content_type: 'application/vnd.api+json',
-          authorization: self.consumer.bearer
+          authorization: self.consumer.bearer,
+          'X-BeautyDate-Session-Token' => self.session.token
         }
       end
     end
