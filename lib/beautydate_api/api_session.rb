@@ -31,7 +31,7 @@ module BeautydateApi
     end
 
     def authenticated?
-      !@token_key.to_s.empty?
+      @token_key && !@token_key.empty?
     end
 
     def valid?

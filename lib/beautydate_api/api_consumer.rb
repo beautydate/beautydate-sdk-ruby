@@ -28,7 +28,7 @@ module BeautydateApi
     end
 
     def authenticated?
-      !@bearer_key.to_s.empty?
+      @bearer_key && !@bearer_key.empty?
     end
 
     def valid?
