@@ -20,7 +20,7 @@ module BeautydateApi
       return if name == 'id'
       singleton_class.class_eval do
         # get
-        define_method(name) do 
+        define_method(name) do
           self.attributes[name]
         end
 
@@ -37,7 +37,7 @@ module BeautydateApi
     end
 
     def unsaved_data
-      @attributes.slice *@unsaved_attributes
+      @attributes.select { |key| @unsaved_attributes.include? key }
     end
 
     def attributes

@@ -2,9 +2,9 @@ module BeautydateApi
   class APIConsumer
 
     def authenticate token
-      request = { 
+      request = {
         method: 'POST',
-        url: "#{BeautydateApi.base_uri}consumers/auth",
+        url: "#{BeautydateApi.base_uri}/consumers/auth",
         timeout: 30,
         headers: {
           user_agent: "BeautyDate/#{BeautydateApi::VERSION}; Ruby Client",
@@ -28,7 +28,7 @@ module BeautydateApi
     end
 
     def authenticated?
-      @bearer_key.present?
+      @bearer_key && !@bearer_key.empty?
     end
 
     def valid?
