@@ -34,9 +34,9 @@ module BeautydateApi
     def base_uri
       @staging = true if @staging.nil? # default environment
       if @staging
-        "#{@staging_endpoint}/#{@api_version}/"
+        "#{@staging_endpoint}/#{@api_version}"
       else
-        "#{@endpoint}/#{@api_version}/"
+        "#{@endpoint}/#{@api_version}"
       end
     end
   end

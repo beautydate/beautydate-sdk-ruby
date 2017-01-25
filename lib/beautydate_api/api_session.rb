@@ -16,7 +16,7 @@ module BeautydateApi
     end
 
     def meta
-      { method: 'POST', url: "#{BeautydateApi.base_uri}sessions", timeout: 30 }
+      { method: 'POST', url: "#{BeautydateApi.base_uri}/sessions", timeout: 30 }
     end
 
     def headers(authorization)

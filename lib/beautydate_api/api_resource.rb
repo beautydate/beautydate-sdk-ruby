@@ -1,6 +1,6 @@
 module BeautydateApi
   class APIResource < BeautydateApi::Object
-    
+
     def is_new?
       @attributes['id'].nil?
     end
@@ -18,7 +18,7 @@ module BeautydateApi
       end
 
       def endpoint_url
-        BeautydateApi.base_uri + object_base_uri
+        "#{BeautydateApi.base_uri}/#{object_base_uri}"
       end
 
       def relative_url(options=nil)
