@@ -7,6 +7,7 @@ require_relative 'beautydate_api/api_request'
 require_relative 'beautydate_api/api_consumer'
 require_relative 'beautydate_api/api_session'
 require_relative 'beautydate_api/business'
+require_relative 'beautydate_api/business_payment'
 
 module BeautydateApi
   @api_version = 'v2'

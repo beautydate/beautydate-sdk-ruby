@@ -46,4 +46,10 @@ business.id = 103
 business.manual_payment true
 ```
 
+#### Avisando sobre o pagamento
+```ruby
+payment = BeautydateApi::BusinessPayment.new
+payment.create(paid_with: 'debit', transaction_details: {}, business_id: 1, business_plan_id: 1)
+```
+
 This project rocks and uses MIT-LICENSE.
