@@ -18,5 +18,6 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
   s.require_paths = ["lib"]
 
-  s.add_dependency 'rest-client', '~> 2.0.0'
+  s.add_dependency 'rest-client',   '~> 2.0.0'
+  s.add_dependency 'activesupport', '~> 5.0.0'
 end

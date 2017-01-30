@@ -1,3 +1,5 @@
+require 'active_support/inflector'
+require 'active_support/core_ext/object/blank'
 require_relative 'beautydate_api/version'
 require_relative 'beautydate_api/object'
 require_relative 'beautydate_api/api_resource'
