@@ -20,15 +20,15 @@ module BeautydateApi
         }.to_json
       }
       result = JSON.parse(RestClient::Request.execute request)
-      @bearer_key = result["data"]["attributes"]["token"]
-      @expires_at = result["data"]["attributes"]["token_expires_at"]
+      @bearer_key = result.dig('data', 'attributes', 'token')
+      @expires_at = result.dig('data', 'attributes', 'token_expires_at')
       true
     rescue
       raise AuthenticationException
     end
 
     def authenticated?
-      @bearer_key && !@bearer_key.empty?
+      @bearer_key.present?
     end
 
     def valid?
