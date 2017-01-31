@@ -27,12 +27,12 @@ module BeautydateApi
       end
 
       def object_base_uri
-        self.name
-          .to_s
-          .demodulize
-          .tableize
-          .titleize
-          .parameterize
+        self.name       # BeautydateApi::BusinessPayment
+          .to_s         # "BeautydateApi::BusinessPayment"
+          .demodulize   # "BusinessPayment"
+          .titleize     # "Business Payment"
+          .pluralize    # "Business Payments"
+          .parameterize # "business-payments"
       end
     end
   end

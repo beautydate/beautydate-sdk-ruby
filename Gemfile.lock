@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    beautydate_api (0.1.0)
+    beautydate_api (0.1.1)
       activesupport (~> 5.0.0)
       rest-client (~> 2.0.0)
 
