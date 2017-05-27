@@ -17,7 +17,7 @@ module BeautydateApi
       end
 
       def session
-        @session ||= BeautydateApi::APISession.new
+        @session ||= BeautydateApi::APISession.new(BeautydateApi.api_session_token)
         unless @session.valid?
           @session.authenticate(
             consumer.bearer,
@@ -34,7 +34,7 @@ module BeautydateApi
         handle_response send_request(method, url, data)
       end
 
-      protected
+      private
 
       def send_request(method, url, data)
         RestClient::Request.execute build_request(method, url, data)

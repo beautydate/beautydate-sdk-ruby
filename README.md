@@ -1,13 +1,26 @@
-# Beautydate API v2 Client
+# Beauty Date's API Client
 
 ## Definindo a chave de acesso a API do Beauty Date
+
+Chave do consumidor:
+
 ```ruby
 BeautydateApi.api_key = 'API_KEY'
+```
+
+Credenciais do usuário:
+
+```ruby
+# E-mail e senha
 BeautydateApi.api_email = 'API_EMAIL'
 BeautydateApi.api_password = 'API_PASSWORD'
+
+# Ou token de sessão, caso já tenha:
+BeautydateApi.api_session_token = 'API_SESSION_TOKEN'
 ```
 
 ### Business
+
 Interagindo com os endpoints de Business.
 
 #### Recuperando dados de um Business
