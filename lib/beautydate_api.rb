@@ -10,9 +10,8 @@ require_relative 'beautydate_api/business'
 require_relative 'beautydate_api/business_payment'
 
 module BeautydateApi
-  @api_version = 'v2'
-  @endpoint = 'https://beautydate.com.br/api'
-  @staging_endpoint = ENV.fetch('BEAUTYDATE_API_STAGING_ENDPOINT', 'https://beta.beautydate.com.br/api')
+  @api_version = 'v2'.freeze
+  @endpoint = 'https://beautydate.com.br/api'.freeze
 
   class AuthenticationException < StandardError
   end
@@ -35,6 +34,10 @@ module BeautydateApi
     attr_accessor :staging
     attr_writer :api_key, :api_email, :api_password, :api_session_token
 
+    def staging_endpoint
+      @staging_endpoint ||= ENV.fetch('BEAUTYDATE_API_STAGING_ENDPOINT', 'https://beta.beautydate.com.br/api')
+    end
+
     def api_key
       @api_key || ENV.fetch('BEAUTYDATE_API_KEY')
     end
@@ -54,7 +57,7 @@ module BeautydateApi
     def base_uri
       @staging = true if @staging.nil? # default environment
       if @staging
-        "#{@staging_endpoint}/#{@api_version}"
+        "#{staging_endpoint}/#{@api_version}"
       else
         "#{@endpoint}/#{@api_version}"
       end
