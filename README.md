@@ -19,7 +19,7 @@ BeautydateApi.api_password = 'API_PASSWORD'
 BeautydateApi.api_session_token = 'API_SESSION_TOKEN'
 ```
 
-> Nota: as atribuições das chaves acima são realizadas automaticamente com a presença das variáveis de ambiente respectivas:
+> Nota: as atribuições de chaves acima acontecem automaticamente com a presença das respectivas variáveis ambiente:
 > BEAUTYDATE_API_KEY, BEAUTYDATE_API_EMAIL, BEAUTYDATE_API_PASSWORD, BEAUTYDATE_API_SESSION_TOKEN
 
 ### Business
