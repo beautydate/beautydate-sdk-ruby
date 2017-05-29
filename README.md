@@ -1,5 +1,19 @@
 # Beauty Date's API Client
 
+## Instalação
+
+Adicione a gem ao seu Gemfile:
+
+```ruby
+gem 'beautydate_api', '~> 0.1.3'
+```
+
+E execute:
+
+```shell
+$ bundle
+```
+
 ## Definindo a chave de acesso a API do Beauty Date
 
 Chave do consumidor:
