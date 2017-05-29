@@ -1,5 +1,11 @@
 module BeautydateApi
   class APISession
+    attr_accessor :token_key, :expires_at
+
+    def initialize(token_key = nil)
+      @token_key  = token_key
+      @expires_at = extract_expires_at
+    end
 
     def authenticate(authorization, email, password)
       request = meta
@@ -52,6 +58,14 @@ module BeautydateApi
 
     def token
       "Token=#{@token_key}"
+    end
+
+    private
+
+    def extract_expires_at
+      return if @token_key.nil?
+      payload = @token_key.split('.')[1]
+      JSON.load(Base64.decode64(payload)).dig('exp')
     end
   end
 end

@@ -32,7 +32,7 @@ module BeautydateApi
 
   class << self
     attr_accessor :staging
-    attr_writer :api_key, :api_email, :api_password
+    attr_writer :api_key, :api_email, :api_password, :api_session_token
 
     def staging_endpoint
       @staging_endpoint ||= ENV.fetch('BEAUTYDATE_API_STAGING_ENDPOINT', 'https://beta.beautydate.com.br/api')
@@ -48,6 +48,10 @@ module BeautydateApi
 
     def api_password
       @api_password || ENV.fetch('BEAUTYDATE_API_PASSWORD')
+    end
+
+    def api_session_token
+      @api_session_token || ENV.fetch('BEAUTYDATE_API_SESSION_TOKEN')
     end
 
     def base_uri
