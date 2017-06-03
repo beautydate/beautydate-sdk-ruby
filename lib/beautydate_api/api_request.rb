@@ -57,9 +57,7 @@ module BeautydateApi
           method: method,
           url: url,
           headers: headers,
-          payload: {
-            data: data
-          }.to_json,
+          payload: { data: data }.to_json,
           timeout: 30
         }
       end
