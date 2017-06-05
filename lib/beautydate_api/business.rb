@@ -3,7 +3,7 @@ module BeautydateApi
     attr_accessor :uuid
 
     def refresh
-      raise UnkownIdentifierError, 'Business ID or UUID is unkown' unless id || uuid
+      raise UnkownIdentifierError, 'Business ID or UUID is unknown' unless id || uuid
       call('GET', self.class.url(id || uuid))
     end
 
