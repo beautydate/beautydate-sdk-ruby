@@ -5,7 +5,7 @@
 Adicione a gem ao seu Gemfile:
 
 ```ruby
-gem 'beautydate_api', '~> 0.1.3'
+gem 'beautydate_api', '~> 0.1.4'
 ```
 
 E execute:

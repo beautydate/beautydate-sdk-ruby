@@ -1,11 +1,11 @@
 module BeautydateApi
   class Object
-    attr_accessor :id
-    attr_accessor :errors
+    attr_accessor :id, :attributes, :errors
 
     def initialize(attributes = {})
       @unsaved_attributes = Set.new
-      set_attributes attributes
+      set_attributes(attributes)
+      extract_id_from_attributes
     end
 
     def set_attributes(attributes)
@@ -15,19 +15,20 @@ module BeautydateApi
       end
     end
 
-    def add_accessor(name)
-      name = name.to_s
-      return if name == 'id'
+    def add_accessor(attribute)
+      attribute = attribute.to_s
+      return if attribute == 'id'
+
       singleton_class.class_eval do
         # get
-        define_method(name) do
-          self.attributes[name]
+        define_method(attribute) do
+          attributes[attribute] || attributes[attribute.to_sym]
         end
 
         # set
-        define_method("#{name}=") do |value|
-          self.attributes[name] = value
-          self.unsaved_attributes.add name
+        define_method("#{attribute}=") do |value|
+          self.attributes[attribute] = value
+          self.unsaved_attributes.add(attribute)
         end
       end
     end
@@ -37,17 +38,18 @@ module BeautydateApi
     end
 
     def unsaved_data
-      @attributes.select { |key| @unsaved_attributes.include? key }
+      @attributes.select { |key| @unsaved_attributes.include?(key) }
     end
 
-    def attributes
-      @attributes
+    private
+
+    def extract_id_from_attributes
+      @id = @attributes&.delete(:id) || @attributes&.delete('id')
     end
 
-    protected
     def update_attributes_from_result(result)
-      set_attributes result["data"]["attributes"]
-      @id = result["data"]["id"]
+      set_attributes(result.dig('data', 'attributes'))
+      @id = result.dig('data', 'id')
     end
   end
 end
