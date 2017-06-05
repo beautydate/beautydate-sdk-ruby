@@ -1,5 +1,14 @@
 module BeautydateApi
   class APIResource < BeautydateApi::Object
+    def call(method, url)
+      response = APIRequest.request(method, url)
+      self.errors = nil
+      update_attributes_from_result(response)
+      true
+    rescue BeautydateApi::RequestWithErrors => e
+      self.errors = e.errors
+      false
+    end
 
     def is_new?
       @attributes['id'].nil?

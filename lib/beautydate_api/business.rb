@@ -1,16 +1,16 @@
 module BeautydateApi
   class Business < APIResource
+    attr_accessor :uuid
 
     # Update object data from Beauty Data
     def refresh
-      result = APIRequest.request('GET', "#{self.class.url(self.id || self.uuid)}")
-      self.errors = nil
-      update_attributes_from_result(result)
-      true
-    rescue BeautydateApi::RequestWithErrors => e
-      self.errors = e.errors
-      false
+      return false unless self.id || self.uuid
+      call('GET', "#{self.class.url(self.id || self.uuid)}")
     end
+
+    ##
+    # TODO: change the common operations below to #call (write specs before doing so)
+    ##
 
     # commercial_name, type, zipcode, street, street_number, neighborhood, city, state, phone, description, az_id
     def create(attributes)
