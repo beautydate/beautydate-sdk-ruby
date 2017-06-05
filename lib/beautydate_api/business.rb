@@ -2,19 +2,17 @@ module BeautydateApi
   class Business < APIResource
     attr_accessor :uuid
 
-    # Update object data from Beauty Data
     def refresh
-      return false unless self.id || self.uuid
-      call('GET', "#{self.class.url(self.id || self.uuid)}")
+      raise UnkownIdentifierError, 'Business ID or UUID is unkown' unless id || uuid
+      call('GET', self.class.url(id || uuid))
     end
 
     ##
     # TODO: change the common operations below to #call (write specs before doing so)
     ##
 
-    # commercial_name, type, zipcode, street, street_number, neighborhood, city, state, phone, description, az_id
     def create(attributes)
-      result = APIRequest.request('POST', "#{self.class.endpoint_url}", { type: "businesses", attributes: attributes })
+      result = APIRequest.request('POST', self.class.endpoint_url, { type: "businesses", attributes: attributes })
       self.errors = nil
       update_attributes_from_result(result)
       true
@@ -24,7 +22,7 @@ module BeautydateApi
     end
 
     def update
-      result = APIRequest.request('PUT', "#{self.class.url(self.id)}", { type: "businesses", id: self.id, attributes: unsaved_data })
+      result = APIRequest.request('PUT', self.class.url(self.id), { type: "businesses", id: self.id, attributes: unsaved_data })
       self.errors = nil
       update_attributes_from_result(result)
       true

@@ -1,5 +1,7 @@
 module BeautydateApi
   class APIResource < BeautydateApi::Object
+    UnkownIdentifierError = Class.new(StandardError)
+
     def call(method, url)
       response = APIRequest.request(method, url)
       self.errors = nil

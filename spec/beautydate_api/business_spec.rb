@@ -27,8 +27,7 @@ describe BeautydateApi::Business do
 
     context 'when neither id nor uuid are present' do
       let(:id_or_uuid) { nil }
-      it { expect(subject.refresh).to be_falsey }
-      it { expect(subject.tap(&:refresh).attributes).not_to be_present }
+      it { expect { subject.refresh }.to raise_error(BeautydateApi::APIResource::UnkownIdentifierError) }
     end
   end
 end
