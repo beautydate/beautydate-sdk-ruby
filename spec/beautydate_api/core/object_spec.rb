@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe BeautydateApi::Object do
+describe BeautydateApi::Core::Object do
   subject { described_class.new(attributes) }
 
   context 'when initialized' do

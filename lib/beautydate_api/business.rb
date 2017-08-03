@@ -1,5 +1,5 @@
 module BeautydateApi
-  class Business < APIResource
+  class Business < Core::Resource
     attr_accessor :uuid
 
     def refresh
@@ -12,7 +12,7 @@ module BeautydateApi
     ##
 
     def create(attributes)
-      result = APIRequest.request('POST', self.class.endpoint_url, { type: "businesses", attributes: attributes })
+      result = Core::Request.request('POST', self.class.endpoint_url, { type: "businesses", attributes: attributes })
       self.errors = nil
       update_attributes_from_result(result)
       true
@@ -22,7 +22,7 @@ module BeautydateApi
     end
 
     def update
-      result = APIRequest.request('PUT', self.class.url(self.id), { type: "businesses", id: self.id, attributes: unsaved_data })
+      result = Core::Request.request('PUT', self.class.url(self.id), { type: "businesses", id: self.id, attributes: unsaved_data })
       self.errors = nil
       update_attributes_from_result(result)
       true
@@ -32,7 +32,7 @@ module BeautydateApi
     end
 
     def add_trial_days(days, update_data=false)
-      APIRequest.request('POST', "#{self.class.url(self.id)}/add_trial_days/#{days}")
+      Core::Request.request('POST', "#{self.class.url(self.id)}/add_trial_days/#{days}")
       self.errors = nil
       refresh if update_data
       true
@@ -43,7 +43,7 @@ module BeautydateApi
 
     def manual_payment(status, update_data=false)
       status = !!status ? 'enable' : 'disable'
-      APIRequest.request('PUT', "#{self.class.url(self.id)}/manual_payment/#{status}")
+      Core::Request.request('PUT', "#{self.class.url(self.id)}/manual_payment/#{status}")
       refresh if update_data
       self.errors = nil
       true

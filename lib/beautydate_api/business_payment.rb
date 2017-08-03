@@ -1,7 +1,7 @@
 module BeautydateApi
-  class BusinessPayment < APIResource
+  class BusinessPayment < Core::Resource
     def create(attributes)
-      result = APIRequest.request('POST', self.class.endpoint_url, create_params(attributes))
+      result = Core::Request.request('POST', self.class.endpoint_url, create_params(attributes))
       self.errors = nil
       update_attributes_from_result result
       true

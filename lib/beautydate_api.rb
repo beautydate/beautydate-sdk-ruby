@@ -1,11 +1,13 @@
 require 'active_support/inflector'
 require 'active_support/core_ext/object/blank'
 require_relative 'beautydate_api/version'
-require_relative 'beautydate_api/object'
-require_relative 'beautydate_api/api_resource'
-require_relative 'beautydate_api/api_request'
-require_relative 'beautydate_api/api_consumer'
-require_relative 'beautydate_api/api_session'
+
+require_relative 'beautydate_api/core/object'
+require_relative 'beautydate_api/core/resource'
+require_relative 'beautydate_api/core/request'
+require_relative 'beautydate_api/core/consumer'
+require_relative 'beautydate_api/core/session'
+
 require_relative 'beautydate_api/business'
 require_relative 'beautydate_api/business_payment'
 
