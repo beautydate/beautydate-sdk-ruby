@@ -1,18 +1,26 @@
 module BeautydateApi
   module Core
     class Object
-      TOP_LEVEL_DATA = %w(id type attributes relationships).freeze
+      MEMBERS = {
+        top_level: %w(data included),
+        data: %w(id type attributes relationships)
+      }.freeze
 
-      attr_reader *TOP_LEVEL_DATA, :errors, :changed
+      attr_reader *MEMBERS.values.flatten, :errors, :changed
 
-      def initialize(data)
-        @id, @type, @attributes, @relationships = data.values_at(*TOP_LEVEL_DATA)
-        @was     = {}
-        @changed = {}
-        define_accessors
+      def initialize(body)
+        @id, @type,
+        @attributes,
+        @relationships = body['data'].values_at(*MEMBERS[:data])
+        @included      = body['included']
+        @was           = {}
+        @changed       = {}
+
+        define_attribute_accessors
+        define_relationship_accessors
       end
 
-      def define_accessors
+      def define_attribute_accessors
         @attributes.keys.each do |key|
           self.singleton_class.class_eval do
             define_method(key)          { @attributes[key] }
@@ -23,6 +31,19 @@ module BeautydateApi
               @attributes[key] = value
               @changed.merge!(key => [@was[key], value])
             end
+          end
+        end
+      end
+
+      def define_relationship_accessors
+        !@included.nil? && @relationships.map do |(key, value)|
+          next if value['data'].nil?
+          type = value.dig('data', 'type')
+          data = @included.find { |object| object.slice('id', 'type') == value['data'].slice('id', 'type') }
+          body = value.slice('data').deep_merge('data' => data)
+
+          self.singleton_class.class_eval do
+            define_method(key) { Resource.resourcify!(type).new(body) }
           end
         end
       end

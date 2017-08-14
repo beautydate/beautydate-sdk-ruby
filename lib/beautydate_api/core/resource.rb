@@ -2,33 +2,43 @@ module BeautydateApi
   module Core
     class Resource < Object
       UnkownIdentifierError = Class.new(StandardError)
-      #
-      # def call(method, url)
-      #   response = Core::Request.request(method, url)
-      #   self.errors = nil
-      #   update_attributes_from_result(response)
-      #   true
-      # rescue BeautydateApi::RequestWithErrors => e
-      #   self.errors = e.errors
-      #   false
-      # end
 
       class << self
+        def all(params = {})
+          body = call('GET', url, params)
+          body.dig('data').map { |data| new('data' => data, 'included' => body['included']) }
+        end
+
+        def find(id, params = {})
+          raise UnkownIdentifierError, "#{name} ID is unknown" if id.nil?
+          body = call('GET', url(id: id), params)
+          new(body)
+        end
+
         def call(method, url, params = {})
           Core::Request.request(method, url, params: params)
         end
 
         def url(id: nil)
-          [BeautydateApi.base_uri, object_base_uri, id].compact.join('/')
+          [BeautydateApi.base_uri, resource_path, id].compact.join('/')
         end
 
-        def object_base_uri
+        def resource_path
           self.name       # BeautydateApi::BusinessPayment
             .to_s         # "BeautydateApi::BusinessPayment"
             .demodulize   # "BusinessPayment"
             .titleize     # "Business Payment"
             .pluralize    # "Business Payments"
             .parameterize # "business-payments"
+        end
+
+        def resourcify!(name)
+          BeautydateApi.const_get(
+            name            # "business-payments"
+              .singularize  # "business-payment"
+              .underscore   # "business_payment"
+              .camelize     # "BusinessPayment"
+          )
         end
       end
     end
