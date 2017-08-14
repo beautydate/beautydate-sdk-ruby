@@ -10,6 +10,7 @@ require_relative 'beautydate_api/core/session'
 
 require_relative 'beautydate_api/business'
 require_relative 'beautydate_api/business_payment'
+require_relative 'beautydate_api/sales_payment'
 
 module BeautydateApi
   @api_version = 'v2'.freeze

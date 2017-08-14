@@ -22,4 +22,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'activesupport', '~> 5.0.0'
 
   s.add_development_dependency 'rspec', '3.6.0'
+  s.add_development_dependency 'byebug'
 end

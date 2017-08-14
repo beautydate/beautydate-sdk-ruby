@@ -2,22 +2,26 @@ module BeautydateApi
   module Core
     class Resource < Object
       UnkownIdentifierError = Class.new(StandardError)
-
-      def call(method, url)
-        response = Core::Request.request(method, url)
-        self.errors = nil
-        update_attributes_from_result(response)
-        true
-      rescue BeautydateApi::RequestWithErrors => e
-        self.errors = e.errors
-        false
-      end
-
-      def is_new?
-        @attributes['id'].nil?
-      end
+      #
+      # def call(method, url)
+      #   response = Core::Request.request(method, url)
+      #   self.errors = nil
+      #   update_attributes_from_result(response)
+      #   true
+      # rescue BeautydateApi::RequestWithErrors => e
+      #   self.errors = e.errors
+      #   false
+      # end
+      #
+      # def is_new?
+      #   @attributes['id'].nil?
+      # end
 
       class << self
+        def call(method, url)
+          Core::Request.request(method, url)
+        end
+
         def url(options=nil)
           endpoint_url + self.relative_url(options)
         end
