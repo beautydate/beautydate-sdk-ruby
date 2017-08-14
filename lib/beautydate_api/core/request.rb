@@ -31,14 +31,14 @@ module BeautydateApi
           raise BeautydateApi::AuthenticationException, 'Não foi possível autenticar a sessão, verifique o email e senha'
         end
 
-        def request(method, url, data = {})
-          handle_response send_request(method, url, data)
+        def request(method, url, params: {}, payload: {})
+          handle_response send_request(method, url, params, payload)
         end
 
         private
 
-        def send_request(method, url, data)
-          RestClient::Request.execute build_request(method, url, data)
+        def send_request(method, url, params, payload)
+          RestClient::Request.execute(build_request(method, url, params, payload))
         rescue RestClient::ResourceNotFound
           raise ObjectNotFound
         rescue RestClient::UnprocessableEntity => e
@@ -53,12 +53,12 @@ module BeautydateApi
           raise RequestFailed
         end
 
-        def build_request(method, url, data)
+        def build_request(method, url, params, payload)
           {
             method: method,
             url: url,
-            headers: headers,
-            payload: { data: data }.to_json,
+            headers: headers.merge(params: params),
+            payload: payload.to_json,
             timeout: 30
           }
         end

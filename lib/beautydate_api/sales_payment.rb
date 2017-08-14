@@ -1,11 +1,13 @@
 module BeautydateApi
   class SalesPayment < Core::Resource
     class << self
-      def all
-        call('GET', url).dig('data').map { |data| new(data) }
+      def all(params = {})
+        call('GET', url, params).dig('data').map { |data| new(data) }
       end
 
       def find(id)
+        # data = call('GET', url(id: id)).dig('data')
+        # new(data)
       end
     end
 

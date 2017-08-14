@@ -12,34 +12,14 @@ module BeautydateApi
       #   self.errors = e.errors
       #   false
       # end
-      #
-      # def is_new?
-      #   @attributes['id'].nil?
-      # end
 
       class << self
-        def call(method, url)
-          Core::Request.request(method, url)
+        def call(method, url, params = {})
+          Core::Request.request(method, url, params: params)
         end
 
-        def url(options=nil)
-          endpoint_url + self.relative_url(options)
-        end
-
-        def endpoint_url
-          "#{BeautydateApi.base_uri}/#{object_base_uri}"
-        end
-
-        def relative_url(options=nil)
-          id = case options.class.name
-          when 'Hash'
-            options[:id] || options["id"]
-          when 'Iugu::APIResource'
-            options.id
-          else
-            options
-          end
-          id ? "/#{id}" : ""
+        def url(id: nil)
+          [BeautydateApi.base_uri, object_base_uri, id].compact.join('/')
         end
 
         def object_base_uri

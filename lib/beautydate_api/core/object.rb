@@ -27,6 +27,14 @@ module BeautydateApi
         end
       end
 
+      def new_record?
+        @id.nil?
+      end
+
+      def changed?
+        !@changed.empty?
+      end
+
       def changes
         @changed.keys
       end
