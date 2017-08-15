@@ -1,14 +1,14 @@
-module BeautydateApi
+module BeautyDateAPI
   module Core
     class Consumer
 
       def authenticate token
         request = {
           method: 'POST',
-          url: "#{BeautydateApi.base_uri}/consumers/auth",
+          url: "#{BeautyDateAPI.base_uri}/consumers/auth",
           timeout: 30,
           headers: {
-            user_agent: "BeautyDate/#{BeautydateApi::VERSION}; Ruby Client",
+            user_agent: "BeautyDate/#{BeautyDateAPI::VERSION}; Ruby Client",
             content_type: 'application/vnd.api+json'
           },
           payload: {

@@ -3,32 +3,32 @@ require 'rest_client'
 require 'base64'
 require 'json'
 
-module BeautydateApi
+module BeautyDateAPI
   module Core
     class Request
       class << self
         def consumer
-          @consumer ||= BeautydateApi::Core::Consumer.new
+          @consumer ||= BeautyDateAPI::Core::Consumer.new
           unless @consumer.valid?
-            @consumer.authenticate(BeautydateApi.api_key)
+            @consumer.authenticate(BeautyDateAPI.api_key)
           end
           @consumer
-        rescue BeautydateApi::ObjectNotFound => e
-          raise BeautydateApi::AuthenticationException, 'Não foi possível autenticar o Consumer, verifique o BEAUTYDATE_TOKEN'
+        rescue BeautyDateAPI::ObjectNotFound => e
+          raise BeautyDateAPI::AuthenticationException, 'Não foi possível autenticar o Consumer, verifique o BEAUTYDATE_TOKEN'
         end
 
         def session
-          @session ||= BeautydateApi::Core::Session.new(BeautydateApi.api_session_token)
+          @session ||= BeautyDateAPI::Core::Session.new(BeautyDateAPI.api_session_token)
           unless @session.valid?
             @session.authenticate(
               consumer.bearer,
-              BeautydateApi.api_email,
-              BeautydateApi.api_password
+              BeautyDateAPI.api_email,
+              BeautyDateAPI.api_password
             )
           end
           @session
-        rescue BeautydateApi::ObjectNotFound => e
-          raise BeautydateApi::AuthenticationException, 'Não foi possível autenticar a sessão, verifique o email e senha'
+        rescue BeautyDateAPI::ObjectNotFound => e
+          raise BeautyDateAPI::AuthenticationException, 'Não foi possível autenticar a sessão, verifique o email e senha'
         end
 
         def request(method, url, params: {}, payload: {})
@@ -65,7 +65,7 @@ module BeautydateApi
 
         def headers
           {
-            user_agent: "BeautyDate/#{BeautydateApi::VERSION}; Ruby Client",
+            user_agent: "BeautyDate/#{BeautyDateAPI::VERSION}; Ruby Client",
             content_type: 'application/vnd.api+json',
             authorization: self.consumer.bearer,
             'X-BeautyDate-Session-Token' => self.session.token

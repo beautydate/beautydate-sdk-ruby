@@ -1,4 +1,4 @@
-module BeautydateApi
+module BeautyDateAPI
   module Core
     class Session
       attr_accessor :token_key, :expires_at
@@ -23,13 +23,13 @@ module BeautydateApi
       end
 
       def meta
-        { method: 'POST', url: "#{BeautydateApi.base_uri}/sessions", timeout: 30 }
+        { method: 'POST', url: "#{BeautyDateAPI.base_uri}/sessions", timeout: 30 }
       end
 
       def headers(authorization)
         {
           headers: {
-            user_agent: "BeautyDate/#{BeautydateApi::VERSION}; Ruby Client",
+            user_agent: "BeautyDate/#{BeautyDateAPI::VERSION}; Ruby Client",
             content_type: 'application/vnd.api+json',
             authorization: authorization
           }

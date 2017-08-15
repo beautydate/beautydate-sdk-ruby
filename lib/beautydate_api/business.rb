@@ -1,4 +1,4 @@
-module BeautydateApi
+module BeautyDateAPI
   class Business < Core::Resource
     # attr_accessor :uuid
 
@@ -16,7 +16,7 @@ module BeautydateApi
     #   self.errors = nil
     #   update_attributes_from_result(result)
     #   true
-    # rescue BeautydateApi::RequestWithErrors => e
+    # rescue BeautyDateAPI::RequestWithErrors => e
     #   self.errors = e.errors
     #   false
     # end
@@ -26,7 +26,7 @@ module BeautydateApi
     #   self.errors = nil
     #   update_attributes_from_result(result)
     #   true
-    # rescue BeautydateApi::RequestWithErrors => e
+    # rescue BeautyDateAPI::RequestWithErrors => e
     #   self.errors = e.errors
     #   false
     # end
@@ -36,7 +36,7 @@ module BeautydateApi
     #   self.errors = nil
     #   refresh if update_data
     #   true
-    # rescue BeautydateApi::RequestWithErrors => e
+    # rescue BeautyDateAPI::RequestWithErrors => e
     #   self.errors = e.errors
     #   false
     # end
@@ -47,7 +47,7 @@ module BeautydateApi
     #   refresh if update_data
     #   self.errors = nil
     #   true
-    # rescue BeautydateApi::RequestWithErrors => e
+    # rescue BeautyDateAPI::RequestWithErrors => e
     #   self.errors = e.errors
     #   false
     # end

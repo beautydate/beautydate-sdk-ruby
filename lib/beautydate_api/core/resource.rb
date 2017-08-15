@@ -1,4 +1,4 @@
-module BeautydateApi
+module BeautyDateAPI
   module Core
     class Resource < Object
       UnkownIdentifierError = Class.new(StandardError)
@@ -32,12 +32,12 @@ module BeautydateApi
         end
 
         def url(id: nil)
-          [BeautydateApi.base_uri, resource_path, id].compact.join('/')
+          [BeautyDateAPI.base_uri, resource_path, id].compact.join('/')
         end
 
         def resource_path
-          self.name       # BeautydateApi::BusinessPayment
-            .to_s         # "BeautydateApi::BusinessPayment"
+          self.name       # BeautyDateAPI::BusinessPayment
+            .to_s         # "BeautyDateAPI::BusinessPayment"
             .demodulize   # "BusinessPayment"
             .titleize     # "Business Payment"
             .pluralize    # "Business Payments"
@@ -49,7 +49,7 @@ module BeautydateApi
         end
 
         def resourcify!(name)
-          BeautydateApi.const_get(
+          BeautyDateAPI.const_get(
             name            # "business-payments"
               .singularize  # "business-payment"
               .underscore   # "business_payment"

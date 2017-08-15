@@ -1,4 +1,4 @@
-module BeautydateApi
+module BeautyDateAPI
   module Core
     class Object
       MEMBERS = {
