@@ -21,6 +21,12 @@ module BeautydateApi
           new(body)
         end
 
+        def update(id, attributes:, relationships: {})
+          data = normalize_data(attributes, relationships, id)
+          body = call('PATCH', url(id: id), payload: data)
+          new(body)
+        end
+
         def call(method, url, params: {}, payload: {})
           Core::Request.request(method, url, params: params, payload: payload)
         end
@@ -51,14 +57,14 @@ module BeautydateApi
           )
         end
 
-        def normalize_data(attributes, relationships)
+        def normalize_data(attributes, relationships, id = nil)
           {
             data: {
               type: resource_type,
               attributes: attributes,
               relationships: normalize_relationships(relationships)
             }
-          }
+          }.tap { |body| body[:data][:id] = id.to_s unless id.nil? }
         end
 
         def normalize_relationships(relationships)
@@ -67,7 +73,11 @@ module BeautydateApi
             hash.merge!(key => data)
           end
         end
+      end
 
+      def update(attributes)
+        assign_attributes(attributes)
+        !changed? || self.class.update(@id, attributes: attributes) && reset_changes
       end
     end
   end
