@@ -1,3 +1,3 @@
 module BeautydateApi
-  VERSION = '0.1.4'
+  VERSION = '1.0.0.alpha'
 end

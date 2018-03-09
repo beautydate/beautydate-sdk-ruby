@@ -35,7 +35,6 @@ docker run --rm -it --env-file .env -v $(pwd):/gem beautydate-sdk-ruby
 
 - Teste para verificar se está tudo funcionando
 ```ruby
-BeautydateApi.staging = false
 business = BeautydateApi::Business.new
 business.id = 199
 business.refresh
