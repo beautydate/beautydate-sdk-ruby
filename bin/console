@@ -3,5 +3,8 @@
 require 'bundler/setup'
 require 'beautydate_api'
 
+# Require external gems
+Bundler.require(:default, 'development')
+
 require 'irb'
 IRB.start

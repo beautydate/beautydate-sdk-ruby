@@ -14,6 +14,18 @@ E execute:
 $ bundle
 ```
 
+## Desenvolvimento
+
+Faça o build da imagem:
+```sh
+docker build . -t beautydate-sdk-ruby
+```
+
+Rode o console com o volume montado para as alterações dos arquivos serem propagadas
+```sh
+docker run --rm -it -v $(pwd):/gem beautydate-sdk-ruby
+```
+
 ## Definindo a chave de acesso a API do Beauty Date
 
 Chave do consumidor:
