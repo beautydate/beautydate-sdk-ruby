@@ -6,12 +6,12 @@ require "beautydate_api/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "beautydate_api"
-  s.version     = BeautydateApi::VERSION
+  s.version     = BeautyDateAPI::VERSION
   s.authors     = ["Fábio Tomio"]
   s.email       = ["fabiotomio@gmail.com"]
   s.homepage    = "https://beautydate.com.br"
-  s.summary     = "Summary of BeautydateApi."
-  s.description = "Description of BeautydateApi."
+  s.summary     = "Summary of BeautyDateAPI."
+  s.description = "Description of BeautyDateAPI."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
@@ -22,4 +22,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'activesupport', '~> 5.0.0'
 
   s.add_development_dependency 'rspec', '3.6.0'
+  s.add_development_dependency 'byebug'
 end
