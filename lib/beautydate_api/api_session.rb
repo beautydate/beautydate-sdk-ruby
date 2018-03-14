@@ -3,7 +3,7 @@ module BeautydateApi
     attr_accessor :token_key, :expires_at
 
     def initialize(token_key = nil)
-      @token_key  = token_key
+      @token_key  = token_key.presence
       @expires_at = extract_expires_at
     end
 

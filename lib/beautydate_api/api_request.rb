@@ -47,6 +47,7 @@ module BeautydateApi
       end
 
       def handle_response(response)
+        return if response.body.blank?
         JSON.parse(response.body)
       rescue JSON::ParserError
         raise RequestFailed

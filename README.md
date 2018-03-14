@@ -14,6 +14,33 @@ E execute:
 $ bundle
 ```
 
+## Desenvolvimento
+
+- Crie um arquivo `.env` a partir de `.env.example`
+```sh
+cp .env.example .env
+```
+
+- Preencha os seus dados no arquivo `.env`
+
+- Faça o build da imagem
+```sh
+docker build . -t beautydate-sdk-ruby
+```
+
+- Rode o console com o volume montado da pasta local
+```sh
+docker run --rm -it --env-file .env -v $(pwd):/gem beautydate-sdk-ruby
+```
+
+- Teste para verificar se está tudo funcionando
+```ruby
+business = BeautydateApi::Business.new
+business.id = 199
+business.refresh
+business.name # 'Barba Negra'
+```
+
 ## Definindo a chave de acesso a API do Beauty Date
 
 Chave do consumidor:
