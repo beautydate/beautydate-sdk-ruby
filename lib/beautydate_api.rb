@@ -8,6 +8,13 @@ require_relative 'beautydate_api/api_consumer'
 require_relative 'beautydate_api/api_session'
 require_relative 'beautydate_api/business'
 require_relative 'beautydate_api/business_payment'
+require_relative 'beautydate_api/device'
+
+# TODO: Replace the lines above by:
+#
+# Require everything in lib folder, but in random order to find out during
+# development if any "require" instructions are missing in any file
+# Dir['lib/**/*.rb'].shuffle.each { |path| require path.split('lib/')[-1] }
 
 module BeautydateApi
   @api_version = 'v2'.freeze

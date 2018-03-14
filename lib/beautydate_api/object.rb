@@ -48,6 +48,7 @@ module BeautydateApi
     end
 
     def update_attributes_from_result(result)
+      return if result.blank?
       set_attributes(result.dig('data', 'attributes'))
       @id = result.dig('data', 'id')
     end
